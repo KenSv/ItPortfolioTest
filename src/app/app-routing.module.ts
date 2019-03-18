@@ -1,90 +1,26 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { GalleryComponent } from './components/gallery/gallery.component';
+import { MobileAppsComponent } from './components/mobile-apps/mobile-apps.component';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { ServicesComponent } from './components/services/services.component';
+import { WebProjectsComponent } from './components/web-projects/web-projects.component';
+import { ProjectsGuard } from './projects.guard';
+import { LoginComponent } from './components/login/login.component';
 
-export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
-  },
-  {
-    path: '404',
-    component: P404Component,
-    data: {
-      title: 'Page 404'
-    }
-  },
-  {
-    path: '500',
-    component: P500Component,
-    data: {
-      title: 'Page 500'
-    }
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-    data: {
-      title: 'Login Page'
-    }
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-    data: {
-      title: 'Register Page'
-    }
-  },
-  {
-    path: '',
-    component: DefaultLayoutComponent,
-    data: {
-      title: 'Home'
-    },
-    children: [
-      {
-        path: 'base',
-        loadChildren: './views/base/base.module#BaseModule'
-      },
-      {
-        path: 'buttons',
-        loadChildren: './views/buttons/buttons.module#ButtonsModule'
-      },
-      {
-        path: 'charts',
-        loadChildren: './views/chartjs/chartjs.module#ChartJSModule'
-      },
-      {
-        path: 'dashboard',
-        loadChildren: './views/dashboard/dashboard.module#DashboardModule'
-      },
-      {
-        path: 'icons',
-        loadChildren: './views/icons/icons.module#IconsModule'
-      },
-      {
-        path: 'notifications',
-        loadChildren: './views/notifications/notifications.module#NotificationsModule'
-      },
-      {
-        path: 'theme',
-        loadChildren: './views/theme/theme.module#ThemeModule'
-      },
-      {
-        path: 'widgets',
-        loadChildren: './views/widgets/widgets.module#WidgetsModule'
-      }
-    ]
-  },
-  { path: '**', component: P404Component }
+const routes: Routes = [
+  { path: '', component: ServicesComponent },
+  { path: 'gallery', component: GalleryComponent },
+  { path: 'mobileapps', component: MobileAppsComponent },
+  { path: 'projects', component: ProjectsComponent, canActivate: [ProjectsGuard] },
+  { path: 'services', component: ServicesComponent },
+  { path: 'webprojects', component: WebProjectsComponent },
+  { path: 'login',  component: LoginComponent },
+  { path: '**', redirectTo: '' }
 ];
 
-
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: []
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

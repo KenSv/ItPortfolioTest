@@ -1,3 +1,5 @@
-<p>
-  web-projects works!
-</p>
+<div [attr.hidden]="!isLoading">Loading</div>
+<pagination [totalItems]="totalItems"  (pageChanged)="pageChanged($event)"></pagination>
+<div class="gallery">
+    <div class="element" *ngFor="let image of imageList"><img [src]="image" /></div>
+</div>
